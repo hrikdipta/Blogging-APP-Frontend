@@ -19,7 +19,6 @@ function Home() {
       }
     }
     fetchPosts();
-    checkLoginRedirect();
   },[])
   return (
     <div className=' min-h-screen'>
