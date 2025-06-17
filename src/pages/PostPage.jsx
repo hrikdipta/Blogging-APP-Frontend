@@ -14,7 +14,9 @@ function PostPage() {
     const fetchPost = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`)
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?slug=${postSlug}`,{
+          credentials: 'include'
+        })
         const data = await res.json();
         if (res.ok) {
           setPost(data.posts[0])
@@ -32,7 +34,9 @@ function PostPage() {
   useEffect(()=>{
     const fetchRecentPost=async()=>{
       try {
-        const res=await fetch('/api/post/getposts?limit=3');
+        const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?limit=3`,{
+          credentials: 'include'
+        });
         const data=await res.json();
         if(res.ok){
           setRecentPosts(data.posts);

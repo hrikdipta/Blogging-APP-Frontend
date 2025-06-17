@@ -16,7 +16,7 @@ function OAuth() {
       dispatch(signInStart());
       const resultFromGoogle = await signInWithPopup(auth, provider);
       //console.log(result.user)
-      const res=await fetch('/api/auth/google',{
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/google`,{
         method:'POST',
         headers:{
           "Content-Type":'application/json'
@@ -25,7 +25,8 @@ function OAuth() {
           username:resultFromGoogle.user.displayName,
           email:resultFromGoogle.user.email,
           photoURL:resultFromGoogle.user.photoURL
-        })
+        }),
+        credentials: 'include'
       })
       const data=await res.json();
       //console.log(data)

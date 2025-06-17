@@ -21,7 +21,9 @@ function UpdatePost() {
     useEffect(()=>{
         try {
             const fetchPost=async()=>{
-                const res=await fetch(`/api/post/getposts?postId=${postId}`)
+                const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?postId=${postId}`,{
+                    credentials: 'include'
+                })
                 const data=await res.json();
                 if(!res.ok){
                     return setError("error");
@@ -84,12 +86,13 @@ function UpdatePost() {
             return setError('Content is required');
         }
         try {
-            const res=await fetch(`/api/post/update/${postId}/${currentUser._id}`,{
+            const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/update/${postId}/${currentUser._id}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(formData)
+                body:JSON.stringify(formData),
+                credentials: 'include'
             })
             const result = await res.json();
             if(!res.ok){

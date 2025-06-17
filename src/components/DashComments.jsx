@@ -14,8 +14,9 @@ function DashComments() {
     if(!commentIdToDelete) return;
     try {
       setShowDeleteModal(false);
-      const res=await fetch(`/api/comment/deletecomment/${commentIdToDelete}`,{
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/deletecomment/${commentIdToDelete}`,{
         method:"DELETE",
+        credentials: 'include'
       })
       if(res.ok){
         console.log("hello")
@@ -29,7 +30,9 @@ function DashComments() {
   }
   useEffect(()=>{
     const fetchComments=async()=>{
-      const res=await fetch('/api/comment/getallcomments');
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/getallcomments`,{
+        credentials: 'include'
+      });
       if(res.ok){
         const data=await res.json();
         setComments(data.allComments)
@@ -48,7 +51,9 @@ function DashComments() {
   const handleShowMore=async()=>{
     const startIndex=comments.length;
     try {
-      const res=await fetch(`/api/comment/getallcomments?startIndex=${startIndex}`);
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/getallcomments?startIndex=${startIndex}`,{
+        credentials: 'include'
+      });
       const data=await res.json();
       if(!res.ok){
         setShowMore(false)

@@ -5,11 +5,12 @@ const VerifyUser = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         const verifyUser= async()=>{
-            const res= await fetch('/api/auth/verifyuser',{
+            const res= await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verifyuser`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
+                credentials: 'include'
             })
             const data = await res.json();
             if(!res.ok){

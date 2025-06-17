@@ -39,12 +39,13 @@ function Dashprofile() {
         }
         try {
             dispatch(updateStart());
-            const res= await fetch(`/api/user/update/${currentUser._id}`,{
+            const res= await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/update/${currentUser._id}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(formdata)
+                body:JSON.stringify(formdata),
+                credentials: 'include'
             })
             const data=await res.json();
             if(!res.ok){
@@ -110,8 +111,9 @@ function Dashprofile() {
         setShowmodal(false);
         try {
             dispatch(deleteUserStart());
-            const res=await fetch(`/api/user/delete/${currentUser._id}`,{
-                method:'DELETE'
+            const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${currentUser._id}`,{
+                method:'DELETE',
+                credentials: 'include'
             })
             const data=await res.json();
             if(!res.ok){
@@ -126,8 +128,9 @@ function Dashprofile() {
     const handleSignOut=async()=>{
         try {
             setError(null);
-            const res=await fetch('/api/user/signout',{
-                method:'POST'
+            const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/signout`,{
+                method:'POST',
+                credentials: 'include'
             })
             const data=await res.json();
             if(!res.ok){

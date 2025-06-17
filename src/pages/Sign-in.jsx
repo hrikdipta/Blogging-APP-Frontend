@@ -24,12 +24,13 @@ function signIn() {
     }
     try {
       dispatch(signInStart());
-      const res=await fetch('/api/auth/signin',{
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signin`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
         },
-        body:JSON.stringify(formData)
+        body:JSON.stringify(formData),
+        credentials: 'include'
       })
       const data =await res.json();
       if(!res.ok){
@@ -38,18 +39,7 @@ function signIn() {
       }
       if(res.ok){
         dispatch(signInSuccess(data))
-        toast.success('🦄 Wow so easy!', {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          });
-        //navigate('/')
+        navigate('/?login=true')
       }
     } catch (error) {
       dispatch(signInFailure(error.message));

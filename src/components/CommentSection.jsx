@@ -16,7 +16,7 @@ function CommentSection({postId}) {
       if(comment.trim().length===0)
         return;
       try {
-        const res=await fetch('/api/comment/create',{
+        const res=await fetch('${import.meta.env.VITE_API_BASE_URL}/api/comment/create',{
           method:"POST",
           headers:{
             "Content-Type":"application/json"
@@ -25,7 +25,8 @@ function CommentSection({postId}) {
             content:comment,
             postId,
             userId:currentUser._id
-          })
+          }),
+          credentials: 'include'
         })
         const data= await res.json();
         if(res.ok){
@@ -39,7 +40,9 @@ function CommentSection({postId}) {
     useEffect(()=>{
       const fetchComments=async()=>{
         try {
-          const res =await fetch(`/api/comment/getpostcomments/${postId}`)
+          const res =await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/getpostcomments/${postId}`,{
+            credentials: 'include'
+          })
           const allComments=await res.json();
           
           if(!res.ok){
@@ -60,8 +63,9 @@ function CommentSection({postId}) {
         if(!currentUser){
           return;
         }
-        const res=await fetch(`/api/comment/likecomment/${commentId}`,{
-          method:"PUT"
+        const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/likecomment/${commentId}`,{
+          method:"PUT",
+          credentials: 'include'
         })
         if(res.ok){
           const data =await res.json();

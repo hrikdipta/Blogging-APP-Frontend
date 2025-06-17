@@ -10,7 +10,9 @@ function Home() {
   const location = useLocation();
   useEffect(()=>{
     const fetchPosts=async()=>{
-      const res=await fetch('/api/post/getposts');
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts`,{
+        credentials: 'include'
+      });
       if(res.ok){
         const data=await res.json();
         setPosts(data.posts);
@@ -20,7 +22,7 @@ function Home() {
       const query=new URLSearchParams(location.search);
       const login= query.get('login');
       if(login==="true"){
-        showToast('success','Account Created Successfully');
+        showToast('success','login Success');
       }
       else if(login==="false"){
         toast.error('Login failed', {

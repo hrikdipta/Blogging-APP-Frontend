@@ -61,12 +61,13 @@ function CreatePost() {
             return setError('Content is required');
         }
         try {
-            const res=await fetch('/api/post/create',{
+            const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/create`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(formData)
+                body:JSON.stringify(formData),
+                credentials: 'include'
             })
             const result = await res.json();
             if(!res.ok){

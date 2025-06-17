@@ -13,7 +13,9 @@ function Comment({comment,likeComment,onEdit,onDelete}) {
   useEffect(()=>{
     const fetchUserData=async()=>{
       try {
-        const res=await fetch(`/api/user/${comment.userId}`);
+        const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/${comment.userId}`,{
+          credentials: 'include'
+        });
         const data=await res.json();
         if(!res.ok){
           console.log("error occuared")
@@ -33,14 +35,15 @@ function Comment({comment,likeComment,onEdit,onDelete}) {
   }
   const saveComment=async()=>{
     try {
-      const res=await fetch(`/api/comment/editcomment/${comment._id}`,{
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/editcomment/${comment._id}`,{
         method:'PUT',
         headers:{
           'Content-Type':'application/json'
         },
         body:JSON.stringify({
           content:editedContent
-        })
+        }),
+        credentials: 'include'
       })
       if(res.ok){
         onEdit(comment._id,editedContent)
@@ -53,8 +56,9 @@ function Comment({comment,likeComment,onEdit,onDelete}) {
 
   const deleteComment=async()=>{
     try {
-      const res= await fetch(`/api/comment/deletecomment/${comment._id}`,{
-        method:"DELETE"
+      const res= await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/comment/deletecomment/${comment._id}`,{
+        method:"DELETE",
+        credentials: 'include'
       })
       if(res.ok){
         setShowModal(false);

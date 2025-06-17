@@ -29,7 +29,9 @@ function Search() {
         const fetchPost=async()=>{
             setLoading(true);
             const searchQuery=urlParams.toString();
-            const res=await fetch(`/api/post/getposts?${searchQuery}`);
+            const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?${searchQuery}`,{
+                credentials: 'include'
+            });
             if(!res.ok){
                 return setLoading(false);
             }
@@ -58,7 +60,9 @@ function Search() {
         const urlParams=new URLSearchParams(location.search)
         urlParams.set('startIndex',startIndex);
         const searchQuery=urlParams.toString();
-        const res = await fetch(`/api/search/?${searchQuery}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/search/?${searchQuery}`,{
+            credentials: 'include'
+        });
         if(!res.ok){
             return
         }

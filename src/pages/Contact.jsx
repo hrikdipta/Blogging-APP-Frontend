@@ -11,7 +11,7 @@ function Contact() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res= await fetch('/api/contact',{
+      const res= await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/contact`,{
         method:'POST',
         headers:{
           'Content-Type':'application/json'
@@ -20,7 +20,8 @@ function Contact() {
           name:`${formData.firstName} ${formData.lastName}`,
           email:formData.email,
           message:formData.message
-        })
+        }),
+        credentials: 'include'
       })
       if(res.ok){
         setSuccess('Email sent successfully');

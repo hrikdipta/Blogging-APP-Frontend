@@ -22,12 +22,13 @@ function SignUp() {
       setLoading(true);
       setError(null);
       
-      const res=await fetch('/api/auth/generateotp',{
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/generateotp`,{
         method:'POST',
         headers:{
           "Content-Type":'application/json'
         },
-        body:JSON.stringify(formData)
+        body:JSON.stringify(formData),
+        credentials: 'include'
       })
       const data=await res.json();
       

@@ -20,12 +20,13 @@ const OtpModal = ({ showModal, setOpenModal, formData }) => {
             setLoading(true);
             dispatch(signInStart());
             setError(null);
-            const res = await fetch('/api/auth/signup', {
+            const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({ ...formData, otp })
+                body: JSON.stringify({ ...formData, otp }),
+                credentials: 'include'
             })
             const data = await res.json();
             console.log(data);

@@ -13,7 +13,9 @@ function DashUsers() {
   const[error,setError]=useState(null)
   useEffect(()=>{
     const fetchUsers=async()=>{
-      const res=await fetch(`/api/user/getusers`)
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/getusers`,{
+        credentials: 'include'
+      })
       const data = await res.json();
       if(res.ok){
         setusers(data.allUsers)
@@ -30,7 +32,9 @@ function DashUsers() {
   const handleShowMore=async()=>{
     const startIndex=users.length;
     try {
-      const res=await fetch(`/api/user/getusers?startIndex=${startIndex}`);
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/getusers?startIndex=${startIndex}`,{
+        credentials: 'include'
+      });
       const data=await res.json();
       if(!res.ok){
         setShowMore(false)
@@ -49,8 +53,9 @@ function DashUsers() {
     setShowDeleteModal(false);
     if(!userIdToDelete) return;
     try {
-        const res=await fetch(`/api/user/delete/${userIdToDelete}`,{
-            method:"DELETE"
+        const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${userIdToDelete}`,{
+            method:"DELETE",
+            credentials: 'include'
         })
         if(!res.ok){
             setError("something went wrong")

@@ -13,7 +13,9 @@ function DashPosts() {
   console.log(posts)
   useEffect(()=>{
     const fetchPosts=async()=>{
-      const res=await fetch(`/api/post/getposts?userId=${currentUser._id}`)
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?userId=${currentUser._id}`,{
+        credentials: 'include'
+      })
       const data = await res.json();
       if(res.ok){
         setPosts(data.posts)
@@ -30,7 +32,9 @@ function DashPosts() {
   const handleShowMore=async()=>{
     const startIndex=posts.length;
     try {
-      const res=await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,{
+        credentials: 'include'
+      });
       const data=await res.json();
       if(res.ok){
         setPosts([...posts,...data.posts])
@@ -46,8 +50,9 @@ function DashPosts() {
     setShowDeleteModal(false);
     if(!postIdToDelete) return;
     try {
-      const res=await fetch(`/api/post/delete/${postIdToDelete}/${currentUser._id}`,{
-        method:'DELETE'
+      const res=await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/post/delete/${postIdToDelete}/${currentUser._id}`,{
+        method:'DELETE',
+        credentials: 'include'
       })
       if(!res.ok){
         setError('Something went wrong, please try again later')
