@@ -7,6 +7,7 @@ import OAuth from '../components/OAuth';
 import signin from '../assets/images/signin.png';
 import { ToastContainer, toast,Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../utilis/showToast';
 function signIn() {
   const dispatch=useDispatch();
   const navigate=useNavigate();
@@ -38,8 +39,11 @@ function signIn() {
         setError('An error occured, please try again later')
       }
       if(res.ok){
-        dispatch(signInSuccess(data))
-        navigate('/?login=true')
+        dispatch(signInSuccess(data));
+        showToast('success','Sign-in successful! Redirecting to home...');
+        setTimeout(() => {
+          navigate('/') 
+        }, 2000);
       }
     } catch (error) {
       dispatch(signInFailure(error.message));

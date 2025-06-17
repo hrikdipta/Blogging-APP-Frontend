@@ -3,6 +3,7 @@ import { Modal, TextInput, Button,Alert,Spinner } from 'flowbite-react';
 import {signInStart,signInSuccess,signInFailure} from '../redux/User/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '../utilis/showToast';
 const OtpModal = ({ showModal, setOpenModal, formData }) => {
     const navigate = useNavigate();
     const dispatch=useDispatch();
@@ -37,7 +38,10 @@ const OtpModal = ({ showModal, setOpenModal, formData }) => {
                 return;
             } else {
                 dispatch(signInSuccess(data));
-                navigate('/?login=true');
+                showToast('success','Sign-up successful! Redirecting to home...');
+                setTimeout(() => {
+                    navigate('/') 
+                }, 2000);
             }
         } catch (error) {
             setError(error.message)

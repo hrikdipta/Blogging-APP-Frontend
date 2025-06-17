@@ -1,3 +1,4 @@
+import React from "react";
 import { toast,Bounce } from "react-toastify";
 
 export const showToast=(alertType,alertMessage)=>{
@@ -5,7 +6,7 @@ export const showToast=(alertType,alertMessage)=>{
     {
         toast.success(alertMessage, {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -14,5 +15,19 @@ export const showToast=(alertType,alertMessage)=>{
             theme: "light",
             transition: Bounce,
           });
+    }
+    if(alertType=='fail')
+    {
+        toast.error(alertMessage, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+      });
     }
 }

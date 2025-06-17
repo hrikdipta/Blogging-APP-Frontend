@@ -18,30 +18,8 @@ function Home() {
         setPosts(data.posts);
       }
     }
-    const checkLoginRedirect=()=>{
-      const query=new URLSearchParams(location.search);
-      const login= query.get('login');
-      if(login==="true"){
-        showToast('success','login Success');
-      }
-      else if(login==="false"){
-        toast.error('Login failed', {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-      });
-      }
-    }
     fetchPosts();
     checkLoginRedirect();
-
-    
   },[])
   return (
     <div className=' min-h-screen'>
